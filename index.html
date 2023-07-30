@@ -4,9 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock-Paper-Scissors</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  
+  <nav>
+    <div class="title">ROCK PAPER SCISSORS</div>
+  </nav>
+  <div class="body-content">
+    <div class="headings">
+      <div style="font-size: 38px; font-weight: 700;">Choose Your weapon</div>
+      <div style="font-size: 20px;" class="result">First to Score Five Points Wins the Game</div>
+    </div>
+    <div class="selections">
+      <div class="user">
+        <div class="user-selection selected">?</div>
+        <div>Player: <span class="userWinCount"></span></div>
+      </div>
+      <div class="computer">
+        <div class="computer-selection selected">?</div>
+        <div>Computer: <span class="computerWinCount"></span></div>
+      </div>
+    </div>
+    <div class="emojis">
+      <div class="button" id="rock">✊</div >
+      <div class="button" id="paper">✋</div >
+      <div class="button" id="scissors">✌️</div >
+    </div>
+  </div>
+    <footer>
+      <p>Copyright © Shree Ram 💚</p>
+      <div class="socials">
+        <a href="https://github.com/mshreeram"><img src="/static/github.png" alt="" width="30px"></a>
+        <a href="https://www.linkedin.com/in/shree-ram-meka-9082391b6/"><img src="/static/linkedin.png" alt="" width="30px"></a>
+      </div>
+  </footer>
+  <dialog id="modal">
+    <div class="modal-ele">
+      <h1 class="modal-title"></h1>
+      <button class="play-again">Play again!!!</button>
+    </div>
+  </dialog>
   <script src="index.js"></script>
 </body>
 </html>

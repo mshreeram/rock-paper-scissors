@@ -4,9 +4,18 @@ let gameMap = {
   2: "scissors"
 }
 
+let viewMap = {
+  0: "✊",
+  1: "✋",
+  2: "✌️"
+}
+
+let userWins = 0, computerWins = 0, message;
+
 function playRound (userSelection, computerSelection) {
   if (userSelection === computerSelection) {
-    return `Tie Match!!!`;
+    message =  `Tie Match!!!`;
+    return message;
   }
   let userStatus, won, lost;
   if (userSelection === "rock") {
@@ -30,11 +39,14 @@ function playRound (userSelection, computerSelection) {
   }
   if (userStatus === "Win") {
     [won, lost] = [userSelection, computerSelection];
+    userWins++;
   } else {
     [won, lost] = [computerSelection, userSelection];
+    computerWins++;
   }
 
-  let message = `You ${userStatus}!!! ${won} beats ${lost}`;
+  
+  message = `You ${userStatus}!!! ${won} beats ${lost}`;
   return message;
 }
 
@@ -42,13 +54,41 @@ function playRound (userSelection, computerSelection) {
 function getComputerSelection() {
   let index = Math.floor(Math.random() * 3);
   let currentSelection = gameMap[index];
-  alert(`Computer Chose: ${currentSelection}`);
+  document.querySelector('.computer-selection').textContent = viewMap[index];
+  // alert(`Computer Chose: ${currentSelection}`);
   return currentSelection;
 }
 
+const buttons = document.querySelectorAll('.button')
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const userSelection = button.getAttribute('id');
+    let userEmojiSelection = (userSelection === 'rock') ? '✊' : (userSelection === 'paper' ? '✋' : '✌️');
+    document.querySelector('.user-selection').textContent = userEmojiSelection;
+    const computerSelection = getComputerSelection();
+    if (userWins < 5 && computerWins < 5) {
+      let message = playRound(userSelection, computerSelection);
+    }
+    updateScreen();
+    setTimeout(checkWin, 10)
+  })
+})
 
-for (let i = 0; i < 5; i++) {
-  let userSelection = prompt("Choose between rock, paper, scissors").toLowerCase();
-  let computerSelection = getComputerSelection();
-  alert(playRound(userSelection, computerSelection));
+function updateScreen() {
+  document.querySelector('.userWinCount').textContent = userWins;
+  document.querySelector('.computerWinCount').textContent = computerWins;
+  document.querySelector('.result').textContent = message;
 }
+
+
+function checkWin() {
+  if (userWins >= 5 || computerWins >= 5) {
+    let finalMsg = (userWins > computerWins) ? (`You won`) : ( `You lose`);
+    document.querySelector('.modal-title').textContent = finalMsg;
+    document.querySelector('#modal').showModal();
+  }
+}
+
+document.querySelector('.play-again').addEventListener('click', () => {
+  location.reload();
+})
